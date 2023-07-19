@@ -5,7 +5,7 @@ import lombok.extern.java.Log;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.IntConsumer;
+import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -45,10 +45,18 @@ public class _Stream {
 
         Function<Person, String> personStringFunction = person -> person.name;
         ToIntFunction<String> length = String::length;
+
         people.stream()
                 .map(personStringFunction)
                 .mapToInt(length)
                 .forEach(number -> log.info(String.valueOf(number)));
+
+        // More Streams
+        Predicate<Person> personPredicate = person -> Gender.NOT_TOLD.equals(person.gender);
+        boolean containsOnlyFemales = people.stream().anyMatch(personPredicate);
+        log.info(String.valueOf(containsOnlyFemales));
+
+
 
 
     }
