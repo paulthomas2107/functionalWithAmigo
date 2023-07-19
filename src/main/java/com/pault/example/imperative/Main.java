@@ -5,6 +5,7 @@ import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 
 @Log
@@ -34,10 +35,11 @@ public class Main {
         }
 
         // Declarative Approach
-        people.stream()
-                .filter(person -> Gender.FEMALE.equals(person.gender))
-                .toList()
-                .forEach(person -> log.info(person.toString()));
+        Predicate<Person> personPredicate = person -> Gender.FEMALE.equals(person.gender);
+        List<Person> females2 = people.stream()
+                .filter(personPredicate)
+                .toList();
+        females2.forEach(person -> log.info(person.toString()));
 
 
 
